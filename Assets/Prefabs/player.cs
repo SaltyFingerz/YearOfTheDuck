@@ -13,6 +13,7 @@ public class player : MonoBehaviour
     public float gravityScale = 1.5f;
     public Camera mainCamera;
 
+    public bool isAlive = true;
     bool facingRight = true;
     float moveDirection = 0;
     bool isGrounded = false;
@@ -20,6 +21,7 @@ public class player : MonoBehaviour
     Rigidbody2D r2d;
     CapsuleCollider2D mainCollider;
     Transform t;
+    SpriteRenderer renderer;
 
     // Use this for initialization
     void Start()
@@ -31,6 +33,7 @@ public class player : MonoBehaviour
         r2d.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
         r2d.gravityScale = gravityScale;
         facingRight = t.localScale.x > 0;
+        renderer = GetComponent<SpriteRenderer>();
 
         if (mainCamera)
         {
@@ -42,7 +45,7 @@ public class player : MonoBehaviour
     void Update()
     {
         // Movement controls
-        if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) && (isGrounded || Mathf.Abs(r2d.velocity.x) > 0.01f))
+        if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) && (isGrounded || Mathf.Abs(r2d.velocity.x) > 0.01f) && isAlive)
         {
             moveDirection = Input.GetKey(KeyCode.A) ? -1 : 1;
         }
@@ -70,7 +73,7 @@ public class player : MonoBehaviour
         }
 
         // Jumping
-        if (Input.GetKeyDown(KeyCode.W) && isGrounded)
+        if (Input.GetKeyDown(KeyCode.W) && isGrounded && isAlive)
         {
             r2d.velocity = new Vector2(r2d.velocity.x, jumpHeight);
         }
@@ -109,5 +112,23 @@ public class player : MonoBehaviour
         // Simple debug
         Debug.DrawLine(groundCheckPos, groundCheckPos - new Vector3(0, colliderRadius, 0), isGrounded ? Color.green : Color.red);
         Debug.DrawLine(groundCheckPos, groundCheckPos - new Vector3(colliderRadius, 0, 0), isGrounded ? Color.green : Color.red);
+    }
+
+    //check for trap collision
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "trap")
+        {
+            StartCoroutine(Dead());
+        }
+    }
+    public IEnumerator Dead()
+    {
+        isAlive = false;
+        Debug.Log("dead");
+        renderer.enabled = false;
+        yield return new WaitForSeconds(5);
+        Debug.Log("respawn");
+        renderer.enabled = true;
     }
 }
