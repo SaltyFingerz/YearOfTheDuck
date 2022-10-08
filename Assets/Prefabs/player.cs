@@ -25,7 +25,7 @@ public class player : MonoBehaviour
     Transform sprite;
     Animator animator;
     Transform t;
-    new SpriteRenderer renderer;
+    SpriteRenderer spriteRenderer;
 
     // Use this for initialization
     void Start()
@@ -39,7 +39,7 @@ public class player : MonoBehaviour
         r2d.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
         r2d.gravityScale = gravityScale;
         facingRight = t.localScale.x > 0;
-        renderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = sprite.GetComponent<SpriteRenderer>();
         originPos = gameObject.transform.position;
 
         if (mainCamera)
@@ -116,7 +116,7 @@ public class player : MonoBehaviour
     //check for trap collision
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "trap")
+        if (collision.gameObject.tag == "trap" && isAlive)
         {
             StartCoroutine(Dead());
         }
@@ -124,11 +124,13 @@ public class player : MonoBehaviour
     public IEnumerator Dead()
     {
         isAlive = false;
-        renderer.enabled = false;
-        Instantiate(prefab, gameObject.transform.position, Quaternion.AngleAxis(90, Vector3.back)); // create dead body where the player is
+        spriteRenderer.enabled = false;
+        mainCollider.enabled = false;
+        Instantiate(prefab, gameObject.transform.position + new Vector3(0.31f,0.31f,0.0f), Quaternion.identity); ; // create dead body where the player is
         yield return new WaitForSeconds(2);
         gameObject.transform.position = originPos; // return the player to original position
-        renderer.enabled = true;
+        spriteRenderer.enabled = true;
         isAlive = true;
+        mainCollider.enabled = true;
     }
 }

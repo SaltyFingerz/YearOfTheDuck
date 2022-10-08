@@ -177,7 +177,7 @@ MonoBehaviour:
   jumpHeight: 6.5
   gravityScale: 1.5
   mainCamera: {fileID: 0}
-  prefab: {fileID: 0}
+  prefab: {fileID: 2417965974554647145, guid: 13a5323e20f2439438ae6c234f148915, type: 3}
   isAlive: 1
 --- !u!70 &9207539503600013510
 CapsuleCollider2D:
