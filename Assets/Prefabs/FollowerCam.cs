@@ -9,6 +9,7 @@ public class FollowerCam : MonoBehaviour
     GameObject playerObj;
     SpriteRenderer bgGradientSpr;
     GameObject bgCloudsObj;
+    player playerScr;
 
     float fps = 1;
 
@@ -33,6 +34,7 @@ public class FollowerCam : MonoBehaviour
         //gets player object and position
         playerObj = GameObject.Find("Player");
         playerPos = playerObj.transform.position;
+        playerScr = playerObj.GetComponent<player>();
 
         //gets gradient bg sprite renderer
         bgGradientSpr = GameObject.Find("GradientBG").GetComponent<SpriteRenderer>();
@@ -128,7 +130,10 @@ public class FollowerCam : MonoBehaviour
         fps = 1f / Time.unscaledDeltaTime;
 
         //updates player pos
-        playerPos = playerObj.transform.position;
+        if (playerScr.isAlive)
+        {
+            playerPos = playerObj.transform.position;
+        }
 
         //sets player pos ease
         playerPosEase += (playerPos - playerPosEase) / (8 * (Mathf.Clamp(fps, 5, 999) / 60));
