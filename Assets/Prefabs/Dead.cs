@@ -5,7 +5,7 @@ using UnityEngine;
 public class Dead : MonoBehaviour
 {
     [SerializeField] private bool triggerActive = false;
-    bool toggle = false;
+    bool toggle;
     public GameObject Player;
     public GameObject sprite;
 
@@ -35,16 +35,16 @@ public class Dead : MonoBehaviour
     {
         if (triggerActive && Input.GetKeyDown(KeyCode.E))
         {
-            do
+            toggle = !toggle;
+            if(toggle == true)
             {
-                toggle = true;
                 Drag();
-            } while (toggle == true);
+            }
         }
     }
 
     public void Drag()
     {
-        transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, (float)0.1);
+        transform.position = Vector3.MoveTowards(transform.position, Player.transform.position * -1, Time.time);
     }
 }
