@@ -22,20 +22,24 @@ public class player : MonoBehaviour
     Vector3 originPos;
     Rigidbody2D r2d;
     CapsuleCollider2D mainCollider;
+    Transform sprite;
+    Animator animator;
     Transform t;
-    new SpriteRenderer renderer;
+    SpriteRenderer spriteRenderer;
 
     // Use this for initialization
     void Start()
     {
         t = transform;
-        r2d = GetComponent<Rigidbody2D>();
+        r2d =GetComponent<Rigidbody2D>();
         mainCollider = GetComponent<CapsuleCollider2D>();
+        sprite = transform.GetChild(0);
+        animator = sprite.GetComponent<Animator>();
         r2d.freezeRotation = true;
         r2d.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
         r2d.gravityScale = gravityScale;
         facingRight = t.localScale.x > 0;
-        renderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = sprite.GetComponent<SpriteRenderer>();
         originPos = gameObject.transform.position;
 
         if (mainCamera)
@@ -48,31 +52,18 @@ public class player : MonoBehaviour
     void Update()
     {
         // Movement controls
-        if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) && (isGrounded || Mathf.Abs(r2d.velocity.x) > 0.01f) && isAlive)
-        {
-            moveDirection = Input.GetKey(KeyCode.A) ? -1 : 1;
-        }
-        else
-        {
-            if (isGrounded || r2d.velocity.magnitude < 0.01f)
-            {
-                moveDirection = 0;
-            }
-        }
+        moveDirection = Input.GetAxis("Horizontal");
 
         // Change facing direction
-        if (moveDirection != 0)
+        if (moveDirection > 0)
         {
-            if (moveDirection > 0 && !facingRight)
-            {
-                facingRight = true;
-                t.localScale = new Vector3(Mathf.Abs(t.localScale.x), t.localScale.y, transform.localScale.z);
-            }
-            if (moveDirection < 0 && facingRight)
-            {
-                facingRight = false;
-                t.localScale = new Vector3(-Mathf.Abs(t.localScale.x), t.localScale.y, t.localScale.z);
-            }
+            facingRight = true;
+            t.localScale = new Vector3(-Mathf.Abs(t.localScale.x), t.localScale.y, t.localScale.z);
+        }
+        if (moveDirection < 0)
+        {
+            facingRight = false;
+            t.localScale = new Vector3(Mathf.Abs(t.localScale.x), t.localScale.y, t.localScale.z);
         }
 
         // Jumping
@@ -112,6 +103,11 @@ public class player : MonoBehaviour
         // Apply movement velocity
         r2d.velocity = new Vector2((moveDirection) * maxSpeed, r2d.velocity.y);
 
+        //Animator
+        animator.SetBool("On Ground", isGrounded);
+        animator.SetFloat("Horizontal Velocity", Mathf.Abs(r2d.velocity.x));
+        animator.SetFloat("Vertical Velocity", r2d.velocity.y);
+
         // Simple debug
         Debug.DrawLine(groundCheckPos, groundCheckPos - new Vector3(0, colliderRadius, 0), isGrounded ? Color.green : Color.red);
         Debug.DrawLine(groundCheckPos, groundCheckPos - new Vector3(colliderRadius, 0, 0), isGrounded ? Color.green : Color.red);
@@ -120,7 +116,7 @@ public class player : MonoBehaviour
     //check for trap collision
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "trap")
+        if (collision.gameObject.tag == "trap" && isAlive)
         {
             StartCoroutine(Dead());
         }
@@ -128,11 +124,15 @@ public class player : MonoBehaviour
     public IEnumerator Dead()
     {
         isAlive = false;
-        renderer.enabled = false;
-        Instantiate(prefab, gameObject.transform.position, Quaternion.AngleAxis(90, Vector3.back)); // create dead body where the player is
+        spriteRenderer.enabled = false;
+        mainCollider.enabled = false;
+        Instantiate(prefab, gameObject.transform.position + new Vector3(0.31f,0.31f,0.0f), Quaternion.identity); ; // create dead body where the player is
         yield return new WaitForSeconds(2);
+        animator.Rebind();
+        animator.Update(0f);
         gameObject.transform.position = originPos; // return the player to original position
-        renderer.enabled = true;
+        spriteRenderer.enabled = true;
         isAlive = true;
+        mainCollider.enabled = true;
     }
 }
