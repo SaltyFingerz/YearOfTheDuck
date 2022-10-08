@@ -12,16 +12,18 @@ public class player : MonoBehaviour
     public float jumpHeight = 6.5f;
     public float gravityScale = 1.5f;
     public Camera mainCamera;
+    public GameObject prefab;
 
     public bool isAlive = true;
     bool facingRight = true;
     float moveDirection = 0;
     bool isGrounded = false;
     Vector3 cameraPos;
+    Vector3 originPos;
     Rigidbody2D r2d;
     CapsuleCollider2D mainCollider;
     Transform t;
-    SpriteRenderer renderer;
+    new SpriteRenderer renderer;
 
     // Use this for initialization
     void Start()
@@ -34,6 +36,7 @@ public class player : MonoBehaviour
         r2d.gravityScale = gravityScale;
         facingRight = t.localScale.x > 0;
         renderer = GetComponent<SpriteRenderer>();
+        originPos = gameObject.transform.position;
 
         if (mainCamera)
         {
@@ -125,10 +128,11 @@ public class player : MonoBehaviour
     public IEnumerator Dead()
     {
         isAlive = false;
-        Debug.Log("dead");
         renderer.enabled = false;
-        yield return new WaitForSeconds(5);
-        Debug.Log("respawn");
+        Instantiate(prefab, gameObject.transform.position, Quaternion.AngleAxis(90, Vector3.back)); // create dead body where the player is
+        yield return new WaitForSeconds(2);
+        gameObject.transform.position = originPos; // return the player to original position
         renderer.enabled = true;
+        isAlive = true;
     }
 }
