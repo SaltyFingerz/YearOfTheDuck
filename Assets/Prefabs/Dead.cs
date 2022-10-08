@@ -36,10 +36,10 @@ public class Dead : MonoBehaviour
         if (triggerActive && Input.GetKeyDown(KeyCode.E))
         {
             toggle = !toggle;
-            if(toggle == true)
-            {
-                Drag();
-            }
+        }
+        if(toggle == true)
+        {
+            Drag();
         }
     }
 
