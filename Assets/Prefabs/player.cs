@@ -128,6 +128,8 @@ public class player : MonoBehaviour
         mainCollider.enabled = false;
         Instantiate(prefab, gameObject.transform.position + new Vector3(0.31f,0.31f,0.0f), Quaternion.identity); ; // create dead body where the player is
         yield return new WaitForSeconds(2);
+        animator.Rebind();
+        animator.Update(0f);
         gameObject.transform.position = originPos; // return the player to original position
         spriteRenderer.enabled = true;
         isAlive = true;
