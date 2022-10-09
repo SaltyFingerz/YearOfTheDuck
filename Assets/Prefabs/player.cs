@@ -121,13 +121,23 @@ public class player : MonoBehaviour
             StartCoroutine(Dead());
         }
     }
+
+    //trigger version of trap collision (for projectiles)
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "trap" && isAlive)
+        {
+            StartCoroutine(Dead());
+        }
+    }
+
     public IEnumerator Dead()
     {
         isAlive = false;
         spriteRenderer.enabled = false;
         mainCollider.enabled = false;
         Instantiate(prefab, gameObject.transform.position + new Vector3(0.31f,0.31f,0.0f), Quaternion.identity); ; // create dead body where the player is
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
         animator.Rebind();
         animator.Update(0f);
         gameObject.transform.position = originPos; // return the player to original position
