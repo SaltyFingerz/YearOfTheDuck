@@ -32,7 +32,7 @@ public class CraftManager : MonoBehaviour
         if (other.gameObject.name.Contains("Dead"))
         {
             canCraft = false;
-
+            other.gameObject.SetActive(false);
 
         }
     }
