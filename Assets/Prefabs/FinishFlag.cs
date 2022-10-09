@@ -23,6 +23,7 @@ public class FinishFlag : MonoBehaviour
     {
         if (collision.gameObject.name == "Player") {
             SceneManager.LoadScene(nextScene);
+            player.maxSpeed = 3.4f;
         }
     }
 }

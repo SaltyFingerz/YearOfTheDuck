@@ -6,6 +6,11 @@ using UnityEngine;
 public class CraftManager : MonoBehaviour
 {
     public GameObject Player;
+    public GameObject PlayerSprite;
+    public Sprite CycleSprite;
+    public Animator animator;
+    public  SpriteRenderer spriteR;
+    public RuntimeAnimatorController animCycle;
     public bool canCraft = false;
     [SerializeField]
     public static bool Crafting = false;
@@ -40,10 +45,18 @@ public class CraftManager : MonoBehaviour
             {
                 print("craft");
                 Crafting = true;
+                BecomeCyclist();
+                
             }
         }
     }
 
+    public void BecomeCyclist()
+    {
+        animator.runtimeAnimatorController = animCycle;
+        spriteR.flipX = true;
+        player.maxSpeed = 15;
+    }
 
 
 
