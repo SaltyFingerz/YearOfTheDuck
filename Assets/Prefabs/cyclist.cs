@@ -118,7 +118,7 @@ public class cyclist : MonoBehaviour
     {
         if (collision.gameObject.tag == "trap" && isAlive)
         {
-            StartCoroutine(Dead());
+            //StartCoroutine(Dead());
         }
     }
     public IEnumerator Dead()
