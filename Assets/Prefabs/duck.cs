@@ -5,12 +5,12 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(CapsuleCollider2D))]
 
-public class cyclist : MonoBehaviour
+public class duck : MonoBehaviour
 {
     // Move player in 2D space
-    public float maxSpeed = 7f;
-    public float jumpHeight = 3f;
-    public float gravityScale = 1.5f;
+    public float maxSpeed = 10f;
+    public float jumpHeight = 12f;
+    public float gravityScale = 0f;
     public Camera mainCamera;
     public GameObject prefab;
 
@@ -118,7 +118,7 @@ public class cyclist : MonoBehaviour
     {
         if (collision.gameObject.tag == "trap" && isAlive)
         {
-            //StartCoroutine(Dead());
+            StartCoroutine(Dead());
         }
     }
     public IEnumerator Dead()
