@@ -5,6 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public bool isVertical;
+    public float fireRate;
     public Sprite verticalSprite;
     public GameObject projectile;
 
@@ -59,7 +60,7 @@ public class Enemy : MonoBehaviour
             GameObject proObj = Instantiate(projectile, transform.position + proDir * 0.5f, Quaternion.identity);
             proObj.GetComponent<EnemyProjectile>().dir = proDir;
 
-            nextTime = Time.unscaledTime + 2;
+            nextTime = Time.unscaledTime + fireRate;
         }
     }
 }
