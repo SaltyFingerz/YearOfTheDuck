@@ -55,6 +55,7 @@ public class CraftManager : MonoBehaviour
     {
         animator.runtimeAnimatorController = animCycle;
         spriteR.flipX = true;
+        player.maxSpeed = 15;
     }
 
 
