@@ -31,7 +31,7 @@ public class player : MonoBehaviour
     void Start()
     {
         t = transform;
-        r2d =GetComponent<Rigidbody2D>();
+        r2d = GetComponent<Rigidbody2D>();
         mainCollider = GetComponent<CapsuleCollider2D>();
         sprite = transform.GetChild(0);
         animator = sprite.GetComponent<Animator>();
@@ -134,5 +134,9 @@ public class player : MonoBehaviour
         spriteRenderer.enabled = true;
         isAlive = true;
         mainCollider.enabled = true;
+    }
+
+    public void SetSpawnPoint(Vector2 point) {
+        originPos = point;
     }
 }
