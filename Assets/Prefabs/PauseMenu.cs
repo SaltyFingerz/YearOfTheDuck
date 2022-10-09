@@ -42,4 +42,9 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1;
         paused = false;
     }
+
+    public void OptionBackToGame() {
+        Time.timeScale = 1;
+        paused = false;
+    }
 }
