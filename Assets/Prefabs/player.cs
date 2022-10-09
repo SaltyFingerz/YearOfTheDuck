@@ -11,7 +11,6 @@ public class player : MonoBehaviour
     public float maxSpeed = 3.4f;
     public float jumpHeight = 6.5f;
     public float gravityScale = 1.5f;
-    public Camera mainCamera;
     public GameObject prefab;
 
     public bool isAlive = true;
@@ -26,6 +25,7 @@ public class player : MonoBehaviour
     Animator animator;
     Transform t;
     SpriteRenderer spriteRenderer;
+    AudioSource audioSource;
 
     // Use this for initialization
     void Start()
@@ -41,11 +41,7 @@ public class player : MonoBehaviour
         facingRight = t.localScale.x > 0;
         spriteRenderer = sprite.GetComponent<SpriteRenderer>();
         originPos = gameObject.transform.position;
-
-        if (mainCamera)
-        {
-            cameraPos = mainCamera.transform.position;
-        }
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -67,15 +63,11 @@ public class player : MonoBehaviour
         }
 
         // Jumping
-        if (Input.GetKeyDown(KeyCode.W) && isGrounded && isAlive)
+        if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && isGrounded && isAlive)
         {
             r2d.velocity = new Vector2(r2d.velocity.x, jumpHeight);
-        }
-
-        // Camera follow
-        if (mainCamera)
-        {
-            mainCamera.transform.position = new Vector3(t.position.x, cameraPos.y, cameraPos.z);
+            audioSource.pitch = Random.Range(0.7f, 0.9f);
+            audioSource.Play();
         }
     }
 
