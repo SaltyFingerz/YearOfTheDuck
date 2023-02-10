@@ -5,8 +5,9 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public bool isVertical;
+    public bool isIce;
     public float fireRate;
-    public Sprite verticalSprite;
+    public List<Sprite> sprites;
     public GameObject projectile;
 
     public SpriteRenderer sprRend;
@@ -21,18 +22,27 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        int spriteId = 0;
+
         playerObj = GameObject.Find("Player");
+
+        if (isIce)
+        {
+            spriteId += 2;
+        }
 
         if (isVertical)
         {
-            sprRend.sprite = verticalSprite;
+            spriteId++;
         }
+
+        sprRend.sprite = sprites[spriteId];
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Time.unscaledTime >= nextTime && projectile != null)
+        if (Time.time >= nextTime && projectile != null)
         {
             if (isVertical)
             {
@@ -58,9 +68,16 @@ public class Enemy : MonoBehaviour
             }
 
             GameObject proObj = Instantiate(projectile, transform.position + proDir * 0.5f, Quaternion.identity);
-            proObj.GetComponent<EnemyProjectile>().dir = proDir;
+            EnemyProjectile proScr = proObj.GetComponent<EnemyProjectile>();
 
-            nextTime = Time.unscaledTime + fireRate;
+            proScr.dir = proDir;
+
+            if (isIce)
+            {
+                proScr.tag = "iceTrap";
+            }
+
+            nextTime = Time.time + fireRate;
         }
     }
 }

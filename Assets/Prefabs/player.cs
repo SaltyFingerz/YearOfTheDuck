@@ -109,27 +109,36 @@ public class player : MonoBehaviour
     //check for trap collision
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "trap" && isAlive)
+        if ((collision.gameObject.tag.ToLower()).Contains("trap") && isAlive)
         {
-            StartCoroutine(Dead());
+            bool ice = collision.gameObject.tag == "iceTrap";
+            StartCoroutine(Dead(ice));
         }
     }
 
     //trigger version of trap collision (for projectiles)
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "trap" && isAlive)
+        if ((collision.gameObject.tag.ToLower()).Contains("trap") && isAlive)
         {
-            StartCoroutine(Dead());
+            bool ice = collision.gameObject.tag == "iceTrap";
+            StartCoroutine(Dead(ice));
         }
     }
 
-    public IEnumerator Dead()
+    public IEnumerator Dead(bool ice)
     {
         isAlive = false;
         spriteRenderer.enabled = false;
         mainCollider.enabled = false;
-        Instantiate(prefab, gameObject.transform.position + new Vector3(0.31f,0.31f,0.0f), Quaternion.identity); ; // create dead body where the player is
+        GameObject skeleton = Instantiate(prefab, gameObject.transform.position + new Vector3(0.31f,0.31f,0.0f), Quaternion.identity); ; // create dead body where the player is
+
+        //if hit ice obstacle
+        if (ice)
+        {
+            skeleton.GetComponent<Dead>().isFrozen = true;
+        }
+
         yield return new WaitForSeconds(1);
         animator.Rebind();
         animator.Update(0f);

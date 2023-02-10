@@ -99,8 +99,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isVertical: 0
+  isIce: 0
   fireRate: 2
-  verticalSprite: {fileID: 21300000, guid: 48e57abf103ac5643acaf58a54566fbf, type: 3}
+  sprites:
+  - {fileID: 21300000, guid: 144a56c77a3f2334a9ee609ff08059bf, type: 3}
+  - {fileID: 21300000, guid: 48e57abf103ac5643acaf58a54566fbf, type: 3}
+  - {fileID: 21300000, guid: 9f1986783132c884da4b40497851c729, type: 3}
+  - {fileID: 21300000, guid: d32f19e39dcfb3b4e8ddedf7daf95566, type: 3}
   projectile: {fileID: 6006688368781116221, guid: 452ff12a589806348bc2c2123ee1666e, type: 3}
   sprRend: {fileID: 2945476602034766301}
 --- !u!61 &2945476602034766303
