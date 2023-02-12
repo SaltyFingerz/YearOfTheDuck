@@ -7,44 +7,60 @@ public class PauseMenu : MonoBehaviour
 {
     bool paused = false;
 
-    Canvas canvas;
+    public CanvasGroup canvGroup;
 
-    // Start is called before the first frame update
     void Start()
     {
-        canvas = GetComponent<Canvas>();
+        setPauseState(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)) {
-            paused = !paused;
-            if (paused)
-            {
-                Time.timeScale = 0;
-            }
-            else {
-                Time.timeScale = 1;
-            }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            setPauseState(!paused);
         }
-        canvas.enabled = paused;
     }
 
-    public void OptionReset() {
+    void setPauseState(bool p)
+    {
+        paused = p;
+
+        if (p)
+        {
+            Time.timeScale = 0;
+
+            canvGroup.alpha = 1;
+            canvGroup.interactable = true;
+            canvGroup.blocksRaycasts = true;
+        }
+        else
+        {
+            Time.timeScale = 1;
+
+            canvGroup.alpha = 0;
+            canvGroup.interactable = false;
+            canvGroup.blocksRaycasts = false;
+        }
+    }
+
+    public void OptionReset()
+    {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         Time.timeScale = 1;
         paused = false;
     }
 
-    public void OptionQuitToMenu() {
+    public void OptionQuitToMenu()
+    {
         SceneManager.LoadScene("Menu");
         Time.timeScale = 1;
         paused = false;
     }
 
-    public void OptionBackToGame() {
-        Time.timeScale = 1;
-        paused = false;
+    public void OptionBackToGame()
+    {
+        setPauseState(false);
     }
 }

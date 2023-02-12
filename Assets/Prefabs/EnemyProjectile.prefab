@@ -33,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6006688368781116194
 SpriteRenderer:
@@ -149,3 +149,4 @@ MonoBehaviour:
   sprRend: {fileID: 6006688368781116194}
   rigbod: {fileID: 6006688368781116198}
   dir: {x: 0, y: 0}
+  iceSprite: {fileID: 21300000, guid: 3d8a530125771ef408064e23ebfe3415, type: 3}

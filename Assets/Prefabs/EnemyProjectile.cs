@@ -7,6 +7,7 @@ public class EnemyProjectile : MonoBehaviour
     public SpriteRenderer sprRend;
     public Rigidbody2D rigbod;
     public Vector2 dir;
+    public Sprite iceSprite;
 
     // Start is called before the first frame update
     void Start()
@@ -14,6 +15,11 @@ public class EnemyProjectile : MonoBehaviour
         if (gameObject.name.Contains("Clone"))
         {
             rigbod.velocity = dir * 4;
+
+            if (tag == "iceTrap")
+            {
+                sprRend.sprite = iceSprite;
+            }
 
             if (dir == Vector2.up)
             {

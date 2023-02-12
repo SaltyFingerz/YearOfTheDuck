@@ -11,7 +11,7 @@ public class MainMenuLogic : MonoBehaviour
 
     public void OptionPlay()
     {
-        SceneManager.LoadScene("Level0");
+        SceneManager.LoadScene("Level1-1");
     }
 
     public void OptionQuit()

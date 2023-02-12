@@ -321,6 +321,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 1537532217}
+  PlayerSprite: {fileID: 0}
+  CycleSprite: {fileID: 0}
+  animator: {fileID: 0}
+  spriteR: {fileID: 0}
+  animCycle: {fileID: 0}
   canCraft: 0
 --- !u!4 &799795688
 Transform:
