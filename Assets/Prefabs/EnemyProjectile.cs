@@ -38,7 +38,6 @@ public class EnemyProjectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        print(collision);
         if (gameObject.name.Contains("Clone") && !collision.name.Contains("Enemy"))
         {
             Destroy(gameObject);

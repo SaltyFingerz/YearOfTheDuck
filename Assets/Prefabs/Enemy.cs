@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public bool disable;
     public bool isVertical;
     public bool isIce;
     public float fireRate;
@@ -14,7 +15,7 @@ public class Enemy : MonoBehaviour
 
     GameObject playerObj;
 
-    float nextTime = 2;
+    float nextTime = 0;
     Vector3 proDir;
 
     Vector3 proPosOffset;
@@ -44,37 +45,40 @@ public class Enemy : MonoBehaviour
     {
         if (Time.time >= nextTime && projectile != null)
         {
-            if (isVertical)
+            if (!disable)
             {
-                if (playerObj.transform.position.y > transform.position.y)
+                if (isVertical)
                 {
-                    proDir = new Vector3(0, 1, 0);
+                    if (playerObj.transform.position.y > transform.position.y)
+                    {
+                        proDir = new Vector3(0, 1, 0);
+                    }
+                    else
+                    {
+                        proDir = new Vector3(0, -1, 0);
+                    }
                 }
                 else
                 {
-                    proDir = new Vector3(0, -1, 0);
+                    if (playerObj.transform.position.x > transform.position.x)
+                    {
+                        proDir = new Vector3(1, 0, 0);
+                    }
+                    else
+                    {
+                        proDir = new Vector3(-1, 0, 0);
+                    }
                 }
-            }
-            else
-            {
-                if (playerObj.transform.position.x > transform.position.x)
+
+                GameObject proObj = Instantiate(projectile, transform.position + proDir * 0.5f, Quaternion.identity);
+                EnemyProjectile proScr = proObj.GetComponent<EnemyProjectile>();
+
+                proScr.dir = proDir;
+
+                if (isIce)
                 {
-                    proDir = new Vector3(1, 0, 0);
+                    proScr.tag = "iceTrap";
                 }
-                else
-                {
-                    proDir = new Vector3(-1, 0, 0);
-                }
-            }
-
-            GameObject proObj = Instantiate(projectile, transform.position + proDir * 0.5f, Quaternion.identity);
-            EnemyProjectile proScr = proObj.GetComponent<EnemyProjectile>();
-
-            proScr.dir = proDir;
-
-            if (isIce)
-            {
-                proScr.tag = "iceTrap";
             }
 
             nextTime = Time.time + fireRate;
