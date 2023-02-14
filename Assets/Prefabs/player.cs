@@ -13,6 +13,7 @@ public class player : MonoBehaviour
     public float jumpHeight = 6.5f;
     public float gravityScale = 1.5f;
     public GameObject prefab;
+    public bool hasCrafted;
 
     public bool isAlive = true;
     bool facingRight = true;

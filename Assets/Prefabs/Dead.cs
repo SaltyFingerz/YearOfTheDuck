@@ -12,6 +12,7 @@ public class Dead : MonoBehaviour
     public BoxCollider2D boxC2D;
     public Rigidbody2D rb;
     SpriteRenderer sprrnd;
+    player playerScr;
 
     private void Start()
     {
@@ -19,6 +20,7 @@ public class Dead : MonoBehaviour
         boxC2D = gameObject.GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
         sprrnd = GetComponent<SpriteRenderer>();
+        playerScr = Player.GetComponent<player>();
 
         if (isFrozen)
         {
@@ -61,7 +63,7 @@ public class Dead : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Player.GetComponent<player>().isAlive)
+        if (playerScr.isAlive && !playerScr.hasCrafted)
         {
             if (triggerActive && Input.GetKeyDown(KeyCode.E))
             {
