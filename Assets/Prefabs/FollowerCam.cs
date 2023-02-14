@@ -29,14 +29,14 @@ public class FollowerCam : MonoBehaviour
         playerPos = playerObj.transform.position;
         playerScr = playerObj.GetComponent<player>();
 
+        //sets cam position to player pos
+        setCam(playerPos.x, playerPos.y);
+
         //gets gradient bg sprite renderer
         bgGradientSpr = GameObject.Find("GradientBG").GetComponent<SpriteRenderer>();
 
         //sets gradient bg sprite to camera/screen size
         bgGradientSpr.size = new Vector2(cam.pixelWidth, cam.orthographicSize * 2);
-
-        //sets cam position to player pos
-        setCam(playerPos.x, playerPos.y);
 
         //sets gradient bg to playerpos (same as cam pos)
         bgGradientSpr.transform.position = playerPos;

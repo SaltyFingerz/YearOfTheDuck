@@ -15,6 +15,7 @@ public class CraftManager : MonoBehaviour
     [SerializeField]
     public static bool Crafting = false;
     private bool useSkel = false;
+    public bool dontDestroyBodies;
   
 
     void OnCollisionEnter2D(Collision2D other)
@@ -32,9 +33,8 @@ public class CraftManager : MonoBehaviour
         if (other.gameObject.name.Contains("Dead"))
         {
             canCraft = false;
-            
 
-            if (useSkel)
+            if (useSkel && !dontDestroyBodies)
             {
                 other.gameObject.SetActive(false);
             }
@@ -62,10 +62,6 @@ public class CraftManager : MonoBehaviour
         spriteR.flipX = true;
         player.maxSpeed = 15;
         useSkel = true;
-
-
+        Player.GetComponent<player>().hasCrafted = true;
     }
-
-
-
 }
