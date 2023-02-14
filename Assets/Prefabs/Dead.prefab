@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4213214258852736978}
   - component: {fileID: -5778436378643430798}
   - component: {fileID: 438011575204954745}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Dead
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,6 +172,7 @@ MonoBehaviour:
   triggerActive: 0
   toggle: 0
   carrying: 0
+  isFrozen: 0
   Player: {fileID: 0}
   boxC2D: {fileID: 0}
   rb: {fileID: 0}

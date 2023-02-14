@@ -13923,6 +13923,34 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f3856fab602b6d43a647073cd7392c3, type: 3}
+--- !u!1 &1429043806 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 390119852006923305, guid: 7f3856fab602b6d43a647073cd7392c3, type: 3}
+  m_PrefabInstance: {fileID: 1429043805}
+  m_PrefabAsset: {fileID: 0}
+--- !u!164 &1429043807
+AudioReverbFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429043806}
+  m_Enabled: 1
+  m_DryLevel: 0
+  m_Room: -1000
+  m_RoomHF: 0
+  m_DecayTime: 4
+  m_DecayHFRatio: 0.5
+  m_ReflectionsLevel: 0
+  m_ReverbLevel: -302
+  m_ReverbDelay: 0.022
+  m_Diffusion: 100
+  m_Density: 100
+  m_HFReference: 5000
+  m_RoomLF: 0
+  m_LFReference: 250
+  m_ReflectionsDelay: 0
+  m_ReverbPreset: 27
 --- !u!114 &1536846331 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2945476602034766298, guid: c79d57d15874d6348a74bd35e0d5a4ab, type: 3}
