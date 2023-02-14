@@ -71,6 +71,12 @@ public class player : MonoBehaviour
             audioSource.pitch = Random.Range(0.7f, 0.9f);
             audioSource.Play();
         }
+
+        // restart from checkpoint if [q] + [r] pressed
+        if ((Input.GetKeyDown(KeyCode.R) && Input.GetKey(KeyCode.T)) || (Input.GetKeyDown(KeyCode.T) && Input.GetKey(KeyCode.R)))
+        {
+            StartCoroutine(Dead(false, true));
+        }
     }
 
     void FixedUpdate()
@@ -113,7 +119,7 @@ public class player : MonoBehaviour
         if ((collision.gameObject.tag.ToLower()).Contains("trap") && isAlive)
         {
             bool ice = collision.gameObject.tag == "iceTrap";
-            StartCoroutine(Dead(ice));
+            StartCoroutine(Dead(ice, false));
         }
     }
 
@@ -123,11 +129,25 @@ public class player : MonoBehaviour
         if ((collision.gameObject.tag.ToLower()).Contains("trap") && isAlive)
         {
             bool ice = collision.gameObject.tag == "iceTrap";
-            StartCoroutine(Dead(ice));
+            StartCoroutine(Dead(ice, false));
         }
     }
 
-    public IEnumerator Dead(bool ice)
+    void destroyAllBodies()
+    {
+        //deletes all bodies
+        GameObject[] allObjs = FindObjectsOfType<GameObject>();
+
+        foreach (GameObject obj in allObjs)
+        {
+            if (obj.name == "Dead(Clone)")
+            {
+                Destroy(obj);
+            }
+        }
+    }
+
+    public IEnumerator Dead(bool ice, bool destroryBodies)
     {
         isAlive = false;
         spriteRenderer.enabled = false;
@@ -141,6 +161,10 @@ public class player : MonoBehaviour
         }
 
         yield return new WaitForSeconds(1);
+        if (destroryBodies)
+        {
+            destroyAllBodies();
+        }
         animator.Rebind();
         animator.Update(0f);
         gameObject.transform.position = originPos; // return the player to original position

@@ -8,6 +8,8 @@ public class PauseMenu : MonoBehaviour
     bool paused = false;
 
     public CanvasGroup canvGroup;
+    public GameObject resetText;
+    public Animator resetTextAni;
 
     void Start()
     {
@@ -20,6 +22,16 @@ public class PauseMenu : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             setPauseState(!paused);
+        }
+
+        if ((Input.GetKeyDown(KeyCode.T) && !Input.GetKey(KeyCode.R)) || (Input.GetKeyDown(KeyCode.R) && !Input.GetKey(KeyCode.T)))
+        {
+            resetTextAni.CrossFadeInFixedTime("Appear", 0.2f);
+        }
+
+        if ((Input.GetKeyUp(KeyCode.T) && !Input.GetKey(KeyCode.R)) || (Input.GetKeyUp(KeyCode.R) && !Input.GetKey(KeyCode.T)))
+        {
+            resetTextAni.CrossFadeInFixedTime("Disappear", 0.2f);
         }
     }
 

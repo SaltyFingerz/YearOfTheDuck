@@ -88,7 +88,6 @@ public class Dead : MonoBehaviour
         {
             toggle = false;
         }
-        
     }
 
     public void Drag()
