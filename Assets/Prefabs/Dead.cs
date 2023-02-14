@@ -80,7 +80,7 @@ public class Dead : MonoBehaviour
             }
             else
             {
-                gameObject.layer = LayerMask.NameToLayer("Default");
+                gameObject.layer = LayerMask.NameToLayer("Body");
                 //boxC2D.enabled = true;
             }
         }
