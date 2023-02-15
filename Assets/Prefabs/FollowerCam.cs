@@ -15,7 +15,7 @@ public class FollowerCam : MonoBehaviour
     float scrHeight;
     float scrWidth;
 
-    Vector2 playerPos;
+    Vector2 playerPos = Vector2.zero;
     public Vector2 playerPosEase;
 
     // Start is called before the first frame update
@@ -26,8 +26,11 @@ public class FollowerCam : MonoBehaviour
 
         //gets player object and position
         playerObj = GameObject.Find("Player");
-        playerPos = playerObj.transform.position;
-        playerScr = playerObj.GetComponent<player>();
+        if (playerObj != null)
+        {
+            playerPos = playerObj.transform.position;
+            playerScr = playerObj.GetComponent<player>();
+        }
 
         //sets cam position to player pos
         setCam(playerPos.x, playerPos.y);
@@ -64,7 +67,7 @@ public class FollowerCam : MonoBehaviour
         fps = 1f / Time.unscaledDeltaTime;
 
         //updates player pos
-        if (playerScr.isAlive)
+        if (playerObj != null && playerScr.isAlive)
         {
             playerPos = playerObj.transform.position;
         }
