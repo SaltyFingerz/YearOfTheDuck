@@ -157,6 +157,8 @@ MonoBehaviour:
   spriteR: {fileID: 27809453}
   animCycle: {fileID: 0}
   canCraft: 0
+  dontDestroyBodies: 0
+  craftObject: 
 --- !u!1 &49130660
 GameObject:
   m_ObjectHideFlags: 0
@@ -12056,6 +12058,8 @@ MonoBehaviour:
   spriteR: {fileID: 27809453}
   animCycle: {fileID: 9100000, guid: db9bb071e9954f546af4c8573bbc7309, type: 2}
   canCraft: 0
+  dontDestroyBodies: 0
+  craftObject: bike
 --- !u!1001 &1972558341
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -29,6 +29,8 @@ public class player : MonoBehaviour
     SpriteRenderer spriteRenderer;
     AudioSource audioSource;
 
+
+
     // Use this for initialization
     void Start()
     {
@@ -65,9 +67,16 @@ public class player : MonoBehaviour
         }
 
         // Jumping
-        if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && isGrounded && isAlive)
+        if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && (isGrounded||CraftManager.isCopter) && isAlive)
         {
             r2d.velocity = new Vector2(r2d.velocity.x, jumpHeight);
+            audioSource.pitch = Random.Range(0.7f, 0.9f);
+            audioSource.Play();
+        }
+
+        if ((Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) && CraftManager.isCopter && isAlive)
+        {
+            r2d.velocity = new Vector2(r2d.velocity.x, -jumpHeight);
             audioSource.pitch = Random.Range(0.7f, 0.9f);
             audioSource.Play();
         }
@@ -77,6 +86,12 @@ public class player : MonoBehaviour
         {
             StartCoroutine(Dead(false, true));
         }
+
+        if(CraftManager.isCopter)
+        {
+            animator.SetFloat("VelocityY", r2d.velocity.y);
+        }
+
     }
 
     void FixedUpdate()

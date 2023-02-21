@@ -16,7 +16,13 @@ public class CraftManager : MonoBehaviour
     public static bool Crafting = false;
     private bool useSkel = false;
     public bool dontDestroyBodies;
-  
+    Rigidbody2D r2d;
+    public string craftObject;
+    public static bool isCopter;
+    private void Start()
+    {
+        r2d = GetComponent<Rigidbody2D>();
+    }
 
     void OnCollisionEnter2D(Collision2D other)
     {
@@ -50,8 +56,12 @@ public class CraftManager : MonoBehaviour
             {
                 print("craft");
                 Crafting = true;
-                BecomeCyclist();
-                
+                if (craftObject == "bike")
+                    BecomeCyclist();
+                else if (craftObject == "helicopter")
+                    BecomeHelicopter();
+
+
             }
         }
     }
@@ -64,4 +74,18 @@ public class CraftManager : MonoBehaviour
         useSkel = true;
         Player.GetComponent<player>().hasCrafted = true;
     }
+
+
+    public void BecomeHelicopter()
+    {
+        animator.runtimeAnimatorController = animCycle;
+        spriteR.flipX = false;
+        player.maxSpeed = 15;
+        useSkel = true;
+        Player.GetComponent<player>().hasCrafted = true;
+        r2d.gravityScale = 0;
+        isCopter = true;
+
+    }
+
 }
