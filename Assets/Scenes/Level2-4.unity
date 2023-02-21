@@ -17689,6 +17689,7 @@ MonoBehaviour:
   animCycle: {fileID: 9100000, guid: db9bb071e9954f546af4c8573bbc7309, type: 2}
   canCraft: 0
   dontDestroyBodies: 1
+  craftObject: bike
 --- !u!1001 &1838724894
 PrefabInstance:
   m_ObjectHideFlags: 0
