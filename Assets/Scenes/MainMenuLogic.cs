@@ -9,9 +9,9 @@ public class MainMenuLogic : MonoBehaviour
         Debug.Log("TEST");
     }
 
-    public void OptionPlay()
+    public void OptionLoadScene(string scene)
     {
-        SceneManager.LoadScene("Level1-1");
+        SceneManager.LoadScene(scene);
     }
 
     public void OptionQuit()
